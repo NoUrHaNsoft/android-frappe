@@ -134,7 +134,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 	public static boolean StoreByteImage(Context mContext, byte[] imageData,
 			int quality, String expName) {
 
-        File sdImageMainDirectory = new File("/sdcard/tmp0");
+        File sdImageMainDirectory = new File("/sdcard/facePICs");
 		FileOutputStream fileOutputStream = null;
 		String nameFile;
 		try {
