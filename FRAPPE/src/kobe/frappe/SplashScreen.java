@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class SplashScreen extends Activity {
+	int requestCode;
 
 	
 	@Override
@@ -19,14 +20,13 @@ public class SplashScreen extends Activity {
 		unlockButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//Intent intent = new Intent(this, CameraView.class);
 				Intent i = new Intent(v.getContext(), CameraView.class);
 				startActivity(i);
+				//startActivityForResult(i, requestCode);
 			}
 		});
 	}
-}
-	  
+	
 
 	 /*@Override
 	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -40,3 +40,4 @@ public class SplashScreen extends Activity {
 	   
 	  }
 	 }*/
+}
