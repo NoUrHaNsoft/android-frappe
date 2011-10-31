@@ -26,3 +26,17 @@ public class SplashScreen extends Activity {
 		});
 	}
 }
+	  
+
+	 /*@Override
+	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+	  switch(requestCode) {
+	   case (GET_PHOTO) : 
+	    if(resultCode == RESULT_OK) {
+	    // go on to compare images
+	    }
+	    break;
+	   
+	  }
+	 }*/

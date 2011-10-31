@@ -17,15 +17,12 @@ import android.graphics.Bitmap.CompressFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 
 public class CameraView extends Activity implements SurfaceHolder.Callback,
 		OnClickListener {
@@ -46,7 +43,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.main);
+		setContentView(R.layout.camera_view);
 		mSurfaceView = (SurfaceView) findViewById(R.id.surface_camera);
 		mSurfaceView.setOnClickListener(this);
 		mSurfaceHolder = mSurfaceView.getHolder();
@@ -137,7 +134,7 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 	public static boolean StoreByteImage(Context mContext, byte[] imageData,
 			int quality, String expName) {
 
-        File sdImageMainDirectory = new File("/sdcard");
+        File sdImageMainDirectory = new File("/sdcard/tmp0");
 		FileOutputStream fileOutputStream = null;
 		String nameFile;
 		try {
@@ -150,13 +147,13 @@ public class CameraView extends Activity implements SurfaceHolder.Callback,
 
 			
 			fileOutputStream = new FileOutputStream(
-					sdImageMainDirectory.toString() +"/image.jpg");
+					sdImageMainDirectory.toString() +"/image.png");
 							
   
 			BufferedOutputStream bos = new BufferedOutputStream(
 					fileOutputStream);
 
-			myImage.compress(CompressFormat.JPEG, quality, bos);
+			myImage.compress(CompressFormat.PNG, quality, bos);
 
 			bos.flush();
 			bos.close();
