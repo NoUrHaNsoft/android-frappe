@@ -20,9 +20,8 @@ public class SplashScreen extends Activity {
 			@Override
 			public void onClick(View v) {
 				//Intent intent = new Intent(this, CameraView.class);
-				Intent i = new Intent( null, CameraView.class);
+				Intent i = new Intent(v.getContext(), CameraView.class);
 				startActivity(i);
-				
 			}
 		});
 	}
