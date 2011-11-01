@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class SplashScreen extends Activity {
-	int requestCode;
+	int CAMERA_PIC_REQUEST;
 
 	
 	@Override
@@ -20,24 +20,9 @@ public class SplashScreen extends Activity {
 		unlockButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(v.getContext(), CameraView.class);
+				Intent i = new Intent(v.getContext(), LogMeIn.class);
 				startActivity(i);
-				//startActivityForResult(i, requestCode);
 			}
 		});
 	}
-	
-
-	 /*@Override
-	 public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	  super.onActivityResult(requestCode, resultCode, data);
-	  switch(requestCode) {
-	   case (GET_PHOTO) : 
-	    if(resultCode == RESULT_OK) {
-	    // go on to compare images
-	    }
-	    break;
-	   
-	  }
-	 }*/
 }
