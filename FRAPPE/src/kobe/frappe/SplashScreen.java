@@ -15,9 +15,9 @@ public class SplashScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.splash_screen);
-		Button unlockButton = (Button)findViewById(R.id.status_button);
+		Button loginButton = (Button)findViewById(R.id.login_button);
 			
-		unlockButton.setOnClickListener(new View.OnClickListener() {
+		loginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(v.getContext(), LogMeIn.class);
