@@ -3,6 +3,6 @@
 
     
     <string name="app_name">FRAPPE</string>
-    <string name="splash_button">UNLOCK?</string>
-
+    <string name="menu_logout">Log me out</string>
+    <string name="menu_addnew">Add new portal</string>
 </resources>
