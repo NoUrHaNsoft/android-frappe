@@ -20,9 +20,6 @@ public class FRAPPEActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        PORTALS.add(PORTALS.size(), new Portal("Door1", P_UNLOCKED));
-        PORTALS.add(PORTALS.size(), new Portal("Door2", P_LOCKED));
-        
         USER_STATUS = LOGGED_OUT;
         setContentView(R.layout.main);
         Intent i = new Intent(this, SplashScreen.class);

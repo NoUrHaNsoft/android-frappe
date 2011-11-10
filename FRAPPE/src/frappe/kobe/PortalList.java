@@ -5,10 +5,15 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
@@ -18,7 +23,7 @@ public class PortalList extends ListActivity {
 	private PortalAdapter pa;
     private static final int MENU_LOGOUT = Menu.FIRST;
     private static final int MENU_ADDPORTAL= Menu.FIRST + 1;
-    
+    private static final int ACTIVITY_CREATEPORTAL = 0;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		  super.onCreate(savedInstanceState);
@@ -32,22 +37,31 @@ public class PortalList extends ListActivity {
 		  lv.setOnItemClickListener(new OnItemClickListener() {
 		    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		    	FRAPPEActivity.PORTALS.get(position).toggleState();
-		    	//String cheese = FRAPPEActivity.PORTALS.get(position).getPhoneNumber();
-		    	//startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+ cheese)));
+		    	String cheese = FRAPPEActivity.PORTALS.get(position).getCellNumber();
+		    	String passphrase = FRAPPEActivity.PORTALS.get(position).getKey();
+		        SmsManager sm = SmsManager.getDefault();
+		        sm.sendTextMessage(cheese, null, passphrase, null, null);
+		    	
 		    	pa.notifyDataSetChanged();
 		    }});
 		  
 		  
-		  // lv.setLongClickable(true);
-/*		  lv.setOnItemLongClickListener(new OnItemLongClickListener() {
+/*		  lv.setLongClickable(true);
+		  lv.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long arg3) {
-				// TODO Auto-generated method stub
+				registerForContextMenu(view);
 				return false;
 			}});*/
-		}
+	}
 	
-	
+/*	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+		
+	}*/
 		
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,14 +76,25 @@ public class PortalList extends ListActivity {
         switch(item.getItemId()) {
         case MENU_LOGOUT:
         	FRAPPEActivity.USER_STATUS = FRAPPEActivity.LOGGED_OUT;
-//        	Intent i = new Intent(getApplicationContext(), SplashScreen.class);
-//        	startActivity(i);
         	finish();
         	break;
         case MENU_ADDPORTAL:
-        	int x = 0;
+        	Intent i = new Intent(getApplicationContext(), CreatePortal.class);
+        	startActivityForResult(i, ACTIVITY_CREATEPORTAL);
+        	Log.e("PortalList", "return from new portal");
         	break;
         }
         return super.onMenuItemSelected(featureId, item);
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	
+    	switch(requestCode){
+    	case ACTIVITY_CREATEPORTAL:
+    		pa.notifyDataSetChanged();
+    		break;
+    	}
     }
 }

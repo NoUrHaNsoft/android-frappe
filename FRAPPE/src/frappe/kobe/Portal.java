@@ -3,19 +3,17 @@ package frappe.kobe;
 public class Portal {
 	private String mLabel;
 	private String mStatus;
+	private String mKeyphrase; //keyphase used to verify sender
+	private String cheese;
 	int mState;
-	private String cheese = "3045129108";
 	
-	Portal(String label, int state){
+	//portals considered unlocked upon creation
+	Portal(String label, String cellnum, String key){
 		this.mLabel = label;
-		this.mState = state;
+		this.mKeyphrase = key;
+		this.cheese = cellnum;
+		this.mState = -1; //state set to locked
 		setStatus(mState);
-	}
-	
-	public void toggleState(){
-		mState *= -1;
-		setStatus(mState);
-
 	}
 	
 	private void setStatus(int state){
@@ -26,6 +24,12 @@ public class Portal {
 			mStatus = "locked";
 		}
 	}
+	
+	public void toggleState(){
+		mState *= -1;
+		setStatus(mState);
+	}
+	
 
 	public String getLabel() {
 		return mLabel;
@@ -35,7 +39,11 @@ public class Portal {
 		return mStatus;
 	}
 	
-	public String getPhoneNumber(){
+	public String getCellNumber(){
 		return cheese;
+	}
+	
+	public String getKey(){
+		return mKeyphrase;
 	}
 }
