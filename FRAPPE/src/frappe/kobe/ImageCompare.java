@@ -27,7 +27,7 @@ public class ImageCompare {
   image2 = ImageCompare.toGrayscale(image2);
   
     
-  //gaussian filter
+  //gaussian filter blur
   Kernel kernel = new Kernel(3,3,
     new float[] {
      1f/9f, 1f/9f, 1f/9f,
