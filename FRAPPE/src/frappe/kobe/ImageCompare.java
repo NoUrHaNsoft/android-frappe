@@ -1,7 +1,5 @@
 package frappe.kobe;
 
-import java.awt.image.ConvolveOp;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
@@ -13,8 +11,7 @@ public class ImageCompare {
  public static boolean imageMatch(Bitmap i, Bitmap i2) {
   
   int currentPixelValue, newPixelValue;
-  int[][] imageArray = new int[224][224], imageArray2 = new int[224][224], lbpArray = new int[224][224], lbpArray2 = new int[224][224], histogram = new int[9][256], histogram2 = new int[9][256];
-  
+  int[][] imageArray = new int[224][224], imageArray2 = new int[224][224], lbpArray = new int[224][224], lbpArray2 = new int[224][224], histogram = new int[9][256], histogram2 = new int[9][256]; 
   
   
   //input pictures, resize to 224x224
@@ -27,24 +24,24 @@ public class ImageCompare {
   image2 = ImageCompare.toGrayscale(image2);
   
     
-  //gaussian filter blur
-  Kernel kernel = new Kernel(3,3,
-    new float[] {
-     1f/9f, 1f/9f, 1f/9f,
-     1f/9f, 1f/9f, 1f/9f,
-     1f/9f, 1f/9f, 1f/9f});
-  BufferedImageOp op2 = new ConvolveOp(kernel);
-  image = op2.filter(image, null);
-  image2= op2.filter(image2, null);
-  
   //convert images to pixel value array
   for(int row=0; row<=223; row++){
    for(int col=0; col<=223; col++){
-    imageArray[row][col]=image.getRGB(row, col);
-    imageArray2[row][col]=image2.getRGB(row, col);
+    unblurredImage[row][col]=image.getRGB(row, col);
+    unblurredImage2[row][col]=image2.getRGB(row, col);
    }
   }  
   
+  
+  //gaussian blur  
+  for(int row=1; row<223; row++){
+			for(int col=1; col<223; col++){
+				imageArray[row][col]=((unblurredImage[row-1][col-1])+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1]))/16;
+				imageArray2[row][col]=((unblurredImage2[row-1][col-1])+((unblurredImage2[row-1][col])*2)+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)+(unblurredImage2[row+1][col+1]))/16;
+			}
+		}
+      
+      
   //perform lbp calculations  
   for(int row=1; row<223; row++){
    for(int col=1; col<223; col++){
@@ -78,6 +75,7 @@ public class ImageCompare {
    }
   }
   
+  
   //create histograms
   for(int row=1; row<=222; row++){
    for(int col=1; col<=222; col++){
@@ -107,10 +105,11 @@ public class ImageCompare {
    }
   }  
   
-  //Compare histograms
+  
+  //Compare histograms (threshold = +/-10%)
   for(int k=0; k<=8; k++){
    for(int j=0; j<=255; j++){
-    if((((histogram[k][j])*0.1)+histogram[k][j]) < histogram2[k][j] || (histogram[k][j]-((histogram[k][j])*0.1)) > histogram2[k][j]){
+    if(((histogram[k][j])*1.1) < histogram2[k][j] || ((histogram[k][j])*0.9) > histogram2[k][j]){
      return false;
     }
    }
