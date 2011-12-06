@@ -5,23 +5,23 @@ public class Portal {
 	private String mStatus;
 	private String mKeyphrase; //keyphase used to verify sender
 	private String cheese;
-	int mState;
+	public int mState;
 	
 	//portals considered unlocked upon creation
 	Portal(String label, String cellnum, String key){
 		this.mLabel = label;
 		this.mKeyphrase = key;
 		this.cheese = cellnum;
-		this.mState = -1; //state set to locked
+		this.mState = 1; //state set to locked
 		setStatus(mState);
 	}
 	
 	private void setStatus(int state){
 		if(state == -1){
-			mStatus = "unlocked";
+			mStatus = "Unlocked";
 		}
 		else if(state == 1){
-			mStatus = "locked";
+			mStatus = "Locked";
 		}
 	}
 	

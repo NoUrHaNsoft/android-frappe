@@ -1,5 +1,10 @@
 package frappe.kobe;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.InputFilter.LengthFilter;
@@ -35,11 +40,17 @@ public class CreatePortal extends Activity {
 				String cellNum = mCellNum.getText().toString();
 				String keyphrase = mKeyphrase.getText().toString();
 				
-				if((mLabel.length() == 0)||(mCellNum.length() == 0)||(mKeyphrase.length() == 0)){
-					Toast.makeText(getApplicationContext(), "Failed to create. Empty fields encountered.", Toast.LENGTH_SHORT);
+				if((label.length() == 0)
+					||(cellNum.length() == 0)
+					||(keyphrase.length() == 0)){
+					Toast.makeText(getBaseContext(), "Failed to create. Empty fields encountered.", Toast.LENGTH_LONG);
 				}
 				else{
-					FRAPPEActivity.PORTALS.add(new Portal(label, cellNum, keyphrase));
+					Portal orange = new Portal(label, cellNum, keyphrase);
+					FRAPPEActivity.PORTALS.add(orange);
+//					writePortal(orange);
+					
+					
 					Log.e("CreatePortal", "Success?");
 				}
 				
@@ -47,4 +58,18 @@ public class CreatePortal extends Activity {
 			}
 		});
 	}
+	
+/*	private boolean writePortal(Portal orange){
+		File pfile = new File(FRAPPEActivity.APP_DIR+"portals/", orange.getCellNumber()+".txt");
+		try {
+			PrintWriter pw = new PrintWriter(new FileOutputStream(pfile));
+			pw.write(orange.getLabel());
+			pw.write(orange.getCellNumber());
+			pw.write(orange.getKey());
+			pw.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}*/
 }

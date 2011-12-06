@@ -41,8 +41,8 @@ public class PortalAdapter extends ArrayAdapter<Portal> {
         if (portal != null){
             TextView label = (TextView) view.findViewById(R.id.portalLabel);
             label.setText(portal.getLabel());
-            TextView status = (TextView) view.findViewById(R.id.portalStatus);
-            status.setText(portal.getStatus());
+            //TextView status = (TextView) view.findViewById(R.id.portalStatus);
+            //status.setText(portal.getStatus());
         }
         return view;
     }

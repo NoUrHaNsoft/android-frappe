@@ -5,4 +5,6 @@
     <string name="app_name">FRAPPE</string>
     <string name="menu_logout">Log me out</string>
     <string name="menu_addnew">Add new portal</string>
+    <string name="cmenu_toggle">Lock/Unlock</string>
+    <string name="cmenu_delport">Delete?</string>    
 </resources>

@@ -13,7 +13,9 @@ public class ImageCompare {
   int currentPixelValue, newPixelValue;
   int[][] imageArray = new int[224][224], imageArray2 = new int[224][224], lbpArray = new int[224][224], lbpArray2 = new int[224][224], histogram = new int[9][256], histogram2 = new int[9][256]; 
   
-  
+  int [][] unblurredImage = new int[224] [224];
+  int [][] unblurredImage2 = new int[224] [224];
+
   //input pictures, resize to 224x224
   Bitmap image = Bitmap.createScaledBitmap(i, 224, 224, false);
   Bitmap image2 = Bitmap.createScaledBitmap(i2, 224, 224, false);
@@ -27,8 +29,8 @@ public class ImageCompare {
   //convert images to pixel value array
   for(int row=0; row<=223; row++){
    for(int col=0; col<=223; col++){
-    unblurredImage[row][col]=image.getRGB(row, col);
-    unblurredImage2[row][col]=image2.getRGB(row, col);
+    unblurredImage[row][col]=image.getPixel(row, col);
+    unblurredImage2[row][col]=image2.getPixel(row, col);
    }
   }  
   
@@ -36,8 +38,8 @@ public class ImageCompare {
   //gaussian blur  
   for(int row=1; row<223; row++){
 			for(int col=1; col<223; col++){
-				imageArray[row][col]=((unblurredImage[row-1][col-1])+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1]))/16;
-				imageArray2[row][col]=((unblurredImage2[row-1][col-1])+((unblurredImage2[row-1][col])*2)+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)+(unblurredImage2[row+1][col+1]))/16;
+				imageArray[row][col]=((unblurredImage[row-1][col-1])+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1])/16;
+				imageArray2[row][col]=((unblurredImage2[row-1][col-1])+((unblurredImage2[row-1][col])*2)+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)+(unblurredImage2[row+1][col+1])/16;
 			}
 		}
       
