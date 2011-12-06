@@ -5,22 +5,31 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.util.Log;
+
 
 public class ImageCompare {
 
  public static boolean imageMatch(Bitmap i, Bitmap i2) {
   
   int currentPixelValue, newPixelValue;
-  int[][] imageArray = new int[224][224], imageArray2 = new int[224][224], lbpArray = new int[224][224], lbpArray2 = new int[224][224], histogram = new int[9][256], histogram2 = new int[9][256]; 
+  int[][] imageArray = new int[224][224], 
+		  imageArray2 = new int[224][224], 
+		  lbpArray = new int[224][224], 
+		  lbpArray2 = new int[224][224], 
+		  histogram = new int[9][256], 
+		  histogram2 = new int[9][256]; 
   
   int [][] unblurredImage = new int[224] [224];
   int [][] unblurredImage2 = new int[224] [224];
-
-  //input pictures, resize to 224x224
-  Bitmap image = Bitmap.createScaledBitmap(i, 224, 224, false);
-  Bitmap image2 = Bitmap.createScaledBitmap(i2, 224, 224, false);
   
-      
+  //input pictures, resize to 224x224
+  Bitmap image = Bitmap.createScaledBitmap(i, 224, 224, true);
+  Bitmap image2 = Bitmap.createScaledBitmap(i2, 224, 224, true);
+  
+  Log.e("ImageCompare i2", Integer.toString(image.getWidth())+' '+Integer.toString(image.getHeight()));
+  Log.e("ImageCompare i2", Integer.toString(image2.getWidth())+' '+Integer.toString(image2.getHeight()));
+   
   //convert to gray scale
   image = ImageCompare.toGrayscale(image);
   image2 = ImageCompare.toGrayscale(image2);
@@ -38,8 +47,17 @@ public class ImageCompare {
   //gaussian blur  
   for(int row=1; row<223; row++){
 			for(int col=1; col<223; col++){
-				imageArray[row][col]=((unblurredImage[row-1][col-1])+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1])/16;
-				imageArray2[row][col]=((unblurredImage2[row-1][col-1])+((unblurredImage2[row-1][col])*2)+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)+(unblurredImage2[row+1][col+1])/16;
+				imageArray[row][col]=((unblurredImage[row-1][col-1])
+						+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])
+						+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)
+						+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])
+						+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1])/16;
+				imageArray2[row][col]=((unblurredImage2[row-1][col-1])
+						+((unblurredImage2[row-1][col])*2)
+						+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)
+						+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)
+						+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)
+						+(unblurredImage2[row+1][col+1])/16;
 			}
 		}
       
