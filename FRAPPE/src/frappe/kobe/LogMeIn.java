@@ -60,11 +60,15 @@ public class LogMeIn extends Activity {
 		    	 pic2 = Media.getBitmap(getContentResolver(), Uri.fromFile(imageFile2));
 		    	 Log.e("LogMeIn pic2", Integer.toString(pic2.getWidth())+' '+Integer.toString(pic2.getHeight()));
 		    	 if (pic1 != null && pic2 != null) {
-					//imagePane.setImageBitmap(pic1);
+					//imagePane.setImageBitmap(ImageCompare.toGrayscale(pic1));
 					if (ImageCompare.imageMatch(pic1, pic2)) {
 						Log.e("LogMeIn", "These pictures match");
+						Intent pl = new Intent(getBaseContext(), PortalList.class);
+						startActivity(pl);
 					} else
 						Log.e("LogMeIn", "These pictures don't match");
+					    Intent i = new Intent(getBaseContext(), SplashScreen.class);
+					    startActivity(i);
 				}
 		    	 else
 						Log.e("LogMeIn", "Null pictures");
