@@ -47,17 +47,24 @@ public class ImageCompare {
   //gaussian blur  
   for(int row=1; row<223; row++){
 			for(int col=1; col<223; col++){
-				imageArray[row][col]=((unblurredImage[row-1][col-1])
-						+((unblurredImage[row-1][col])*2)+(unblurredImage[row-1][col+1])
-						+((unblurredImage[row][col-1])*2)+((unblurredImage[row][col])*4)
-						+((unblurredImage[row][col+1])*2)+(unblurredImage[row+1][col-1])
-						+(unblurredImage[row+1][col])*2)+(unblurredImage[row+1][col+1])/16;
-				imageArray2[row][col]=((unblurredImage2[row-1][col-1])
+				imageArray[row][col]=( (unblurredImage[row-1][col-1])
+						+((unblurredImage[row-1][col])*2)
+            +(unblurredImage[row-1][col+1])
+						+((unblurredImage[row][col-1])*2)
+            +((unblurredImage[row][col])*4)
+						+((unblurredImage[row][col+1])*2)
+            +(unblurredImage[row+1][col-1])
+						+((unblurredImage[row+1][col])*2)
+            +(unblurredImage[row+1][col+1]))/16;
+				imageArray2[row][col]=( (unblurredImage2[row-1][col-1])
 						+((unblurredImage2[row-1][col])*2)
-						+(unblurredImage2[row-1][col+1])+((unblurredImage2[row][col-1])*2)
-						+((unblurredImage2[row][col])*4)+((unblurredImage2[row][col+1])*2)
-						+(unblurredImage2[row+1][col-1])+(unblurredImage2[row+1][col])*2)
-						+(unblurredImage2[row+1][col+1])/16;
+						+(unblurredImage2[row-1][col+1])
+            +((unblurredImage2[row][col-1])*2)
+						+((unblurredImage2[row][col])*4)
+            +((unblurredImage2[row][col+1])*2)
+						+(unblurredImage2[row+1][col-1])
+            +((unblurredImage2[row+1][col])*2)
+						+(unblurredImage2[row+1][col+1]))/16;
 			}
 		}
       
